@@ -1,8 +1,13 @@
 import Home from "./Pages/Home";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/en-gb';
 
 function App() {
   return (
-      <Home/>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+      <Home />
+    </LocalizationProvider>
   );
 }
 
