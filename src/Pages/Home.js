@@ -1,7 +1,7 @@
-import { AppBar, Box, Button, CssBaseline, Grid, Link, Paper, Toolbar } from "@mui/material";
+import { AppBar, Box, CssBaseline, Grid, Link, Paper, Toolbar } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import ExpenseTable from "../Components/ExpenseTable";
-import { AddExpenseDialog } from "../Components/AddExpenseDialog";
+import CreateExpense from "../Components/CreateExpense";
 import { useState } from "react";
 
 function Copyright(props) {
@@ -47,15 +47,16 @@ function TopBar() {
 
 function Home() {
 
-  const [openDialog, setOpenDialog] = useState(false);
   const [expenses, setExpenses] = useState([]);
-
-  function handleCloseDialog() {
-    setOpenDialog(false);
-  }
 
   function handleSaveExpense(expense) {
     setExpenses([expense, ...expenses]);
+  }
+
+  function handleDeleteExpense(expense) {
+    setExpenses(expenses.filter((curr) => {
+      return curr !== expense;
+    }))
   }
 
 
@@ -72,11 +73,8 @@ function Home() {
                 p: 2,
               }}
             >
-              <Button onClick={() => { setOpenDialog(true) }}>
-                Add expense
-              </Button>
-              <AddExpenseDialog open={openDialog} handleCloseDialog={handleCloseDialog} handleSaveExpense={handleSaveExpense} />
-              <ExpenseTable expenses={expenses.slice(0, 3)} />
+              <CreateExpense handleSaveExpense={handleSaveExpense} />
+              <ExpenseTable expenses={expenses.slice(0, 3)} handleDeleteExpense={handleDeleteExpense} />
             </Paper>
           </Grid>
           <Grid item xs={6} md={6} lg={3}>

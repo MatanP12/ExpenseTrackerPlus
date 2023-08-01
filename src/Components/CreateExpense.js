@@ -22,39 +22,36 @@ function CategorySelect({ categories, expense, handleSetCategory }) {
     );
 }
 
-function CreationDatePicker() {
-
-    const [date, setDate] = useState(dayjs());
-
-    console.log(date.toDate().toLocaleDateString("en-GB"));
-
+function CreationDatePicker({ handleSetDate, date }) {
     return (
         <DatePicker
-            value={date}
-            onChange={(newValue) => setDate(newValue)}
+            value={dayjs(date)}
+            onChange={(newValue) => {
+                handleSetDate(newValue.toDate())
+            }}
         />
     )
 
 }
 
+function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog }) {
 
-
-export function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog }) {
-
-    const [expense, setExpense] = useState(new Expense("", 0.01, ""))
+    const [expense, setExpense] = useState(new Expense("", 1, ""))
 
     function handleChange(event) {
         const { name, value } = event.target;
-        if (name === "amount" && value < 0.01) {
-            return
-        }
         setExpense({ ...expense, [name]: value });
     };
 
+    function handleSetDate(newDate) {
+        setExpense({ ...expense, creationDate: newDate });
+    }
+
+
     function saveExpense() {
-        handleSaveExpense(expense);
         handleCloseDialog();
-        setExpense(new Expense("", 0.01, ""));
+        handleSaveExpense(expense);
+        setExpense(new Expense("", 1, ""));
     }
 
     return (
@@ -73,12 +70,11 @@ export function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog })
                             InputProps={{
                                 endAdornment: <InputAdornment position="start">$</InputAdornment>,
                                 inputProps: { min: 0.01 },
-
                             }}
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <CreationDatePicker />
+                        <CreationDatePicker handleSetDate={handleSetDate} date={expense.creationDate} />
                     </Grid>
                     <Grid item xs={6}>
                         <CategorySelect categories={["Food", "Clothes", "Entartaiment"]} expense={expense} handleSetCategory={handleChange} />
@@ -98,4 +94,24 @@ export function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog })
 
     )
 
+}
+
+
+export default function CreateExpense({ handleSaveExpense }) {
+
+    const [openDialog, setOpenDialog] = useState(false);
+
+    function handleCloseDialog() {
+        setOpenDialog(false);
+    }
+
+    return (
+        <>
+            <Button onClick={() => { setOpenDialog(true) }}>
+                Add expense
+            </Button>
+            <AddExpenseDialog open={openDialog} handleCloseDialog={handleCloseDialog} handleSaveExpense={handleSaveExpense} />
+
+        </>
+    )
 }
