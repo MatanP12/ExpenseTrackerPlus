@@ -1,21 +1,11 @@
-import { AppBar, Box, CssBaseline, Grid, Link, Paper, Toolbar } from "@mui/material";
+import { Box, CssBaseline, Grid, Paper, Toolbar } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import ExpenseTable from "../Components/ExpenseTable";
 import CreateExpense from "../Components/CreateExpense";
 import { useState } from "react";
+import TopBar from "../Components/TopBar";
+import { Footer } from "../Components/Footer";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © Matan Peretz '}
-      <Link color="inherit" href="https://github.com/MatanP12/ExpenseTrackerPlus">
-        GitHub Repository
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 function BudgetPaper() {
 
@@ -32,18 +22,6 @@ function BudgetPaper() {
 
 }
 
-
-function TopBar() {
-  return (
-    <AppBar position="fixed">
-      <Toolbar>
-        <Typography component="h1" variant="h6">
-          ExpenseTracker+
-        </Typography>
-      </Toolbar>
-    </AppBar>
-  )
-}
 
 function Home() {
 
@@ -82,7 +60,7 @@ function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Copyright />
+      <Footer />
     </Box>
   )
 }
