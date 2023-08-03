@@ -2,38 +2,42 @@ import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import { Delete } from '@mui/icons-material';
 
 
+function Row({ expense, handleDeleteExpense }) {
+  return (
+    <TableRow sx={{ '& > *': { borderBottom: 'unset' }, maxWidth: "min-content" }} >
+      <TableCell width="1" align="center" size="small">{expense.description}</TableCell>
+      <TableCell width="1" align="center" size="small">{expense.amount}$</TableCell>
+      <TableCell width="1" align="center" size="small"> {expense.business}</TableCell>
+      <TableCell width="1" align="center" size="small">{expense.creationDate.toLocaleDateString('en-GB')}</TableCell>
+      <TableCell width="1" align="center" size="small">{expense.category}</TableCell>
+      <TableCell width="1" align="center" size="small">
+        <IconButton onClick={() => handleDeleteExpense(expense)} >
+          <Delete />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  )
+}
+
 function ExpenseTable({ expenses, handleDeleteExpense }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table >
         <TableHead>
           <TableRow>
-            <TableCell align="center">Description</TableCell>
-            <TableCell align="center">Amount</TableCell>
-            <TableCell align="center">Date</TableCell>
-            <TableCell align="center">Category</TableCell>
-            <TableCell align="center" width="1px"></TableCell>
+            <TableCell width="1" align="center">Description</TableCell>
+            <TableCell width="1" align="center">Amount</TableCell>
+            <TableCell width="1" align="center">Business</TableCell>
+            <TableCell width="1" align="center">Date</TableCell>
+            <TableCell width="1" align="center">Category</TableCell>
+            <TableCell width="1" />
           </TableRow>
         </TableHead>
         <TableBody>
-          {expenses.map((expense) => (
-            <TableRow
-              key={expense.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="center">{expense.description}</TableCell>
-              <TableCell align="center">{expense.amount}$</TableCell>
-              <TableCell align="center">{expense.creationDate.toLocaleDateString('en-GB')}</TableCell>
-              <TableCell align="center">{expense.category}</TableCell>
-              <TableCell >
-                <IconButton onClick={() => handleDeleteExpense(expense)}>
-                  <Delete />
-                </IconButton>
-              </TableCell>
-
-            </TableRow>
-          ))}
+          {expenses.map((expense) => {
+            return <Row key={expense.id} expense={expense} handleDeleteExpense={handleDeleteExpense} />
+          })}
         </TableBody>
       </Table>
     </TableContainer>
