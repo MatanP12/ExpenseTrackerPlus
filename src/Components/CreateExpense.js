@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Expense } from "../utilities/Expense";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
-
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 function CategorySelect({ categories, expense, handleSetCategory }) {
     return (
@@ -61,18 +61,28 @@ function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog }) {
             </DialogTitle>
             <DialogContent sx={{ width: 500 }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
 
                         <TextField placeholder="Description" name="description" fullWidth value={expense.description} onChange={handleChange} />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <TextField placeholder="Amount" name="amount" type="number" value={expense.amount} onChange={handleChange}
                             InputProps={{
-                                endAdornment: <InputAdornment position="start">$</InputAdornment>,
+                                endAdornment: <InputAdornment position="end">$ </InputAdornment>,
                                 inputProps: { min: 0.01 },
                             }}
                         />
                     </Grid>
+                    <Grid item xs={6}>
+                        <TextField placeholder="Bussiness" name="business" value={expense.bussines} onChange={handleChange}
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">
+                                    <LocationOnIcon />
+                                </InputAdornment>
+                            }}
+                        />
+                    </Grid>
+
                     <Grid item xs={6}>
                         <CreationDatePicker handleSetDate={handleSetDate} date={expense.creationDate} />
                     </Grid>

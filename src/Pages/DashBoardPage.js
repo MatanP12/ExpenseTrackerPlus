@@ -35,17 +35,14 @@ export default function DashBoardPage() {
 
     return (
         <Grid container spacing={3}>
-            <Grid item xs={12} md={12} lg={9}>
+            <Grid item xs={12} md={12} lg={8}>
                 <Paper
-                    sx={{
-                        p: 2,
-                    }}
-                >
+                    sx={{ p: 2 }}>
                     <CreateExpense handleSaveExpense={handleSaveExpense} />
                     <ExpenseTable expenses={expenses.slice(0, 3)} handleDeleteExpense={handleDeleteExpense} />
                 </Paper>
             </Grid>
-            <Grid item xs={6} md={6} lg={3}>
+            <Grid item xs={8} md={6} lg={4}>
                 <BudgetPaper />
             </Grid>
         </Grid>

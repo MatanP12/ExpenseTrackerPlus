@@ -1,7 +1,7 @@
 let expenseId = 0;
 
 export class Expense {
-    constructor(description = "", amount = "", category = "", creationDate = new Date()) {
-        return { id: expenseId++, description, amount, category, creationDate }
+    constructor(description = "", amount = "", category = "", business = "", creationDate = new Date()) {
+        return { id: expenseId++, description, amount, business, category, creationDate }
     }
 }
