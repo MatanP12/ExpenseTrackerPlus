@@ -1,5 +1,6 @@
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import { useDeleteData } from '../utilities/ServerCalls';
 
 
 function Row({ expense, handleDeleteExpense }) {
@@ -21,6 +22,14 @@ function Row({ expense, handleDeleteExpense }) {
 
 function ExpenseTable({ expenses, handleDeleteExpense }) {
 
+  const handleDeleteData = useDeleteData("/expenses");
+
+  function onDeleteExpnese(expense) {
+    handleDeleteData(expense);
+    handleDeleteExpense(expense);
+  }
+
+
   return (
     <TableContainer component={Paper}>
       <Table >
@@ -36,7 +45,7 @@ function ExpenseTable({ expenses, handleDeleteExpense }) {
         </TableHead>
         <TableBody>
           {expenses.map((expense) => {
-            return <Row key={expense.id} expense={expense} handleDeleteExpense={handleDeleteExpense} />
+            return <Row key={expense.id} expense={expense} handleDeleteExpense={onDeleteExpnese} />
           })}
         </TableBody>
       </Table>

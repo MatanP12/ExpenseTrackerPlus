@@ -4,6 +4,7 @@ import { Expense } from "../utilities/Expense";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { usePostData } from "../utilities/ServerCalls";
 
 function CategorySelect({ categories, expense, handleSetCategory }) {
     return (
@@ -38,6 +39,13 @@ function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog }) {
 
     const [expense, setExpense] = useState(new Expense("", 1, ""))
 
+    function handleSaveNewExpense(newExpense) {
+        const createdExpense = { ...newExpense, creationDate: new Date(newExpense.creationDate) }
+        handleSaveExpense(createdExpense);
+    }
+
+    const { handlePostData } = usePostData("/expenses", handleSaveNewExpense);
+
     function handleChange(event) {
         const { name, value } = event.target;
         setExpense({ ...expense, [name]: value });
@@ -50,7 +58,7 @@ function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog }) {
 
     function saveExpense() {
         handleCloseDialog();
-        handleSaveExpense(expense);
+        handlePostData(expense);
         setExpense(new Expense("", 1, ""));
     }
 
