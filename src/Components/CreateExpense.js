@@ -44,7 +44,7 @@ function AddExpenseDialog({ open, handleSaveExpense, handleCloseDialog }) {
         handleSaveExpense(createdExpense);
     }
 
-    const { handlePostData } = usePostData("/expenses", handleSaveNewExpense);
+    const handlePostData = usePostData("/expenses", handleSaveNewExpense);
 
     function handleChange(event) {
         const { name, value } = event.target;
