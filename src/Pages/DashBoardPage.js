@@ -1,9 +1,9 @@
 import { Alert, Grid, Paper, Skeleton, Snackbar, Typography } from "@mui/material";
-import CreateExpense from "../Components/CreateExpense";
 import ExpenseTable from "../Components/ExpenseTable";
 import { useGetData } from "../utilities/ServerCalls";
 import { useState } from "react";
 import ExpensesCharts from "../Components/ExpensesChart";
+import { createGetCallback } from "../utilities/ServerCallbacks";
 
 function BudgetPaper() {
 
@@ -23,36 +23,11 @@ export default function DashBoardPage() {
     const [expenses, setExpenses] = useState([]);
     const [error, setError] = useState("");
 
+    const isLoading = useGetData("/expenses", ...createGetCallback(setExpenses, setError));
 
-    function handleGetExpenses(data) {
-        const newData = data.map((currExpnese) => {
-            return { ...currExpnese, creationDate: new Date(currExpnese.creationDate) }
-        })
-
-        newData.sort((ex1, ex2) => ex2.creationDate - ex1.creationDate);
-
-        setExpenses(newData);
-    }
-
-    function handleGetError(err) {
-        setError(err.message);
-    }
-
-    const isLoading = useGetData("/expenses", handleGetExpenses, handleGetError);
-
-    function handleSaveExpense(expense) {
-        setExpenses([...expenses, expense]);
-    }
-
-    function handleDeleteExpense(expense) {
-        setExpenses(expenses.filter((curr) => {
-            return curr.id !== expense.id
-        }))
-    }
 
     return (
         <>
-
             <Grid container spacing={3}>
                 <Grid item xs={12} md={12} lg={8}>
                     <Paper
@@ -78,8 +53,7 @@ export default function DashBoardPage() {
                         {isLoading ?
                             <Skeleton variant="rectangle" width="100%" height={260} /> :
                             <>
-                                <CreateExpense handleSaveExpense={handleSaveExpense} />
-                                <ExpenseTable expenses={expenses} handleDeleteExpense={handleDeleteExpense} />
+                                <ExpenseTable expenses={expenses} />
                             </>
                         }
                     </Paper>

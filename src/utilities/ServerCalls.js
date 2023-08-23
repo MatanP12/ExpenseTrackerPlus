@@ -18,6 +18,7 @@ function useGetData(url, onSuccessResponse = (data) => console.log(data), onErro
                 const response = await axiosInstance.get(url);
                 onSuccessResponse(response.data);
             } catch (err) {
+                console.log(err);
                 onErrorResponse(err)
             }
             finally {
@@ -46,7 +47,7 @@ function useDeleteData(url, onSuccessResponse = (data) => console.log(data), onE
     const handleDeleteData = useCallback(async (data) => {
         try {
             const response = await axiosInstance.delete(url + "/" + data.id);
-            onSuccessResponse(response.data);
+            onSuccessResponse(data);
 
         } catch (err) {
             onErrorResponse(err);
@@ -58,7 +59,7 @@ function useDeleteData(url, onSuccessResponse = (data) => console.log(data), onE
 function usePutData(url, onSuccessResponse = (data) => console.log(data), onErrorResponse = (error) => console.log(error)) {
     const handlePutData = useCallback(async (data) => {
         try {
-            const response = await axiosInstance.put(url + "/" + data.id);
+            const response = await axiosInstance.put(url + "/" + data.id, data);
             onSuccessResponse(response.data);
         } catch (err) {
             onErrorResponse(err);

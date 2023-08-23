@@ -7,6 +7,7 @@ import { RootPage } from "./Pages/RootPage";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/Signup";
 import DashBoardPage from "./Pages/DashBoardPage";
+import ExpensesPage from "./Pages/ExpensesPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <DashBoardPage />
+          },
+          {
+            path: "/expenses",
+            element: <ExpensesPage />
           }
         ]
       }
