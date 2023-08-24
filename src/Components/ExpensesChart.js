@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+// import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 
 function buildExpenses(expenses) {
@@ -19,32 +20,29 @@ function buildExpenses(expenses) {
     }, [])
 }
 
-
 export default function ExpensesCharts({ expenses }) {
 
     const createdExpenses = useMemo(() => buildExpenses(expenses), [expenses]);
 
-
-
-    console.log(createdExpenses);
-
     return (
-        <>
-            Expenses
-            <ResponsiveContainer >
-                <BarChart data={createdExpenses} barSize={20}
-                >
-                    <YAxis dataKey="expenses" padding={{ top: 30 }} />
-                    <XAxis dataKey="date" scale="point" padding={{ left: 40, right: 40 }} />
-                    <Tooltip viewBox={{ width: 20, height: 400 }} />
-                    <Bar
-                        isAnimationActive={false} dataKey="expenses" fill="#413ea0" label={{ position: "top", fontSize: 15 }} />
-                </BarChart>
+        <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+                width={500}
+                height={500}
+                data={createdExpenses}
 
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
 
-            </ResponsiveContainer>
+            >
+                <XAxis dataKey="date" />
+                <YAxis interval="preserveStartEnd" />
+                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" />
 
-        </>
+                <Bar isAnimationActive={false} barSize={30} dataKey="expenses" fill="#8884d8" label={{ position: "top" }} />
+            </BarChart>
+        </ResponsiveContainer>
+
 
     )
 }
