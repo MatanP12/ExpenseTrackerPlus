@@ -4,11 +4,11 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 function Row({ expense }) {
   return (
     <TableRow sx={{ '& > *': { borderBottom: 'unset' }, maxWidth: "min-content" }} >
-      <TableCell width="1" align="center" size="small">{expense.description}</TableCell>
-      <TableCell width="1" align="center" size="small">{expense.amount}$</TableCell>
-      <TableCell width="1" align="center" size="small"> {expense.business}</TableCell>
-      <TableCell width="1" align="center" size="small">{expense.creationDate.toLocaleDateString('en-GB')}</TableCell>
-      <TableCell width="1" align="center" size="small">{expense.category}</TableCell>
+      <TableCell align="left" size="small">{expense.creationDate.toLocaleDateString('en-GB')}</TableCell>
+      <TableCell align="left" size="small">{expense.category}</TableCell>
+      <TableCell align="left" size="small">{expense.description}</TableCell>
+      <TableCell align="left" size="small"> {expense.business}</TableCell>
+      <TableCell align="right" size="small">{expense.amount}$</TableCell>
     </TableRow>
   )
 }
@@ -20,11 +20,11 @@ function ExpenseTable({ expenses }) {
       <Table >
         <TableHead>
           <TableRow>
-            <TableCell width="1" align="center">Description</TableCell>
-            <TableCell width="1" align="center">Amount</TableCell>
-            <TableCell width="1" align="center">Business</TableCell>
-            <TableCell width="1" align="center">Date</TableCell>
-            <TableCell width="1" align="center">Category</TableCell>
+            <TableCell width="1" align="left">Date</TableCell>
+            <TableCell width="1" align="left">Category</TableCell>
+            <TableCell width="1" align="left">Description</TableCell>
+            <TableCell width="1" align="left">Business</TableCell>
+            <TableCell width="1" align="right">Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
