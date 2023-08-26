@@ -7,7 +7,7 @@ import { RootPage } from "./Pages/RootPage";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/Signup";
 import DashBoardPage from "./Pages/DashBoardPage";
-import ExpensesPage from "./Pages/ExpensesPage";
+import TransactionsPage from "./Pages/TransactionsPage";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +31,8 @@ const router = createBrowserRouter([
             element: <DashBoardPage />
           },
           {
-            path: "/expenses",
-            element: <ExpensesPage />
+            path: "/transactions",
+            element: <TransactionsPage />
           }
         ]
       }

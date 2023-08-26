@@ -1,8 +1,8 @@
-export function createGetCallback(setExpenses, setError) {
+export function createGetCallback(setTransactions, setError) {
     const onSucessResponse = (data) => {
-        setExpenses(
-            data.map((currExpense) => {
-                return { ...currExpense, creationDate: new Date(currExpense.creationDate) }
+        setTransactions(
+            data.map((currTransaction) => {
+                return { ...currTransaction, date: new Date(currTransaction.date) }
             })
         )
     }
@@ -12,10 +12,10 @@ export function createGetCallback(setExpenses, setError) {
 
 }
 
-export function createPostCallback(setExpense, setError) {
-    const onSucessResponse = (newExpense) => {
-        const parsedExpense = { ...newExpense, creationDate: new Date(newExpense.creationDate) }
-        setExpense((currExpenses) => [parsedExpense, ...currExpenses]);
+export function createPostCallback(setTransaction, setError) {
+    const onSucessResponse = (newTransaction) => {
+        const parsedTransaction = { ...newTransaction, date: new Date(newTransaction.date) }
+        setTransaction((currTransactions) => [parsedTransaction, ...currTransactions]);
     }
 
     const onErrorResponse = (error) => setError(error.message);
@@ -23,11 +23,11 @@ export function createPostCallback(setExpense, setError) {
     return [onSucessResponse, onErrorResponse];
 }
 
-export function createPutCallback(setExpenses, setError) {
-    const onSucessResponse = (expense) => setExpenses((currExpenses) => {
-        const updatedExpense = { ...expense, creationDate: new Date(expense.creationDate) }
-        console.log(updatedExpense);
-        return currExpenses.map((curr) => curr.id === updatedExpense.id ? updatedExpense : curr);
+export function createPutCallback(setTransactions, setError) {
+    const onSucessResponse = (transaction) => setTransactions((currTransactions) => {
+        const updatedTransaction = { ...transaction, date: new Date(transaction.date) }
+        console.log(updatedTransaction);
+        return currTransactions.map((curr) => curr.id === updatedTransaction.id ? updatedTransaction : curr);
     })
 
     const onErrorResponse = (error) => setError(error.message);
@@ -35,9 +35,9 @@ export function createPutCallback(setExpenses, setError) {
     return [onSucessResponse, onErrorResponse];
 }
 
-export function createDeleteCallback(setExpenses, setError) {
-    const onSucessResponse = (expense) => setExpenses((currExpenses) => {
-        return currExpenses.filter((curr) => curr.id !== expense.id);
+export function createDeleteCallback(setTransactions, setError) {
+    const onSucessResponse = (transaction) => setTransactions((currTransactions) => {
+        return currTransactions.filter((curr) => curr.id !== transaction.id);
     })
 
     const onErrorResponse = (error) => setError(error.message);

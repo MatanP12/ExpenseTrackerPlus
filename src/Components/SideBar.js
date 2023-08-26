@@ -20,7 +20,7 @@ function SideBar() {
 
     const listItems = useMemo(() => [
         { name: "Home", icon: <DashboardIcon />, path: "/" },
-        { name: "Expenses", icon: <ShoppingCartIcon />, path: "/expenses" }
+        { name: "Transactions", icon: <ShoppingCartIcon />, path: "/transactions" }
 
     ], [])
 
@@ -38,7 +38,7 @@ function SideBar() {
                 <List>
                     {listItems.map((curr) => {
                         return (
-                            <SideBarItem id={curr.name} name={curr.name} icon={curr.icon} path={curr.path} isSelected={selectedItem === curr.name} handleSelectItem={() => setSelectedItem(curr.name)} />
+                            <SideBarItem key={curr.name} name={curr.name} icon={curr.icon} path={curr.path} isSelected={selectedItem === curr.name} handleSelectItem={() => setSelectedItem(curr.name)} />
                         )
                     })}
                 </List>
