@@ -1,8 +1,8 @@
 import { Alert, Grid, Paper, Skeleton, Snackbar, Typography } from "@mui/material";
-import ExpenseTable from "../Components/ExpenseTable";
+import TransactionsTable from "../Components/TransactionsTable";
 import { useGetData } from "../utilities/ServerCalls";
 import { useState } from "react";
-import ExpensesCharts from "../Components/ExpensesChart";
+import TransactionsCharts from "../Components/TransactionsChart";
 import { createGetCallback } from "../utilities/ServerCallbacks";
 
 function BudgetPaper() {
@@ -20,11 +20,10 @@ function BudgetPaper() {
 }
 
 export default function DashBoardPage() {
-    const [expenses, setExpenses] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const [error, setError] = useState("");
 
-    const isLoading = useGetData("/expenses", ...createGetCallback(setExpenses, setError));
-
+    const isLoading = useGetData("/transactions", ...createGetCallback(setTransactions, setError));
 
     return (
         <>
@@ -39,7 +38,7 @@ export default function DashBoardPage() {
                         }}
                         elevation={3}
                     >
-                        <ExpensesCharts expenses={expenses} />
+                        <TransactionsCharts transactions={transactions} />
                     </Paper>
                 </Grid>
 
@@ -53,7 +52,7 @@ export default function DashBoardPage() {
                         {isLoading ?
                             <Skeleton variant="rectangle" width="100%" height={260} /> :
                             <>
-                                <ExpenseTable expenses={expenses} />
+                                <TransactionsTable transactions={transactions} />
                             </>
                         }
                     </Paper>
