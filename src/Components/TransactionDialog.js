@@ -3,8 +3,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { INCOME, EXPENSE } from "../utilities/Transaction";
-function CategorySelect({ categories, transaction, handleSetCategory }) {
 
+function CategorySelect({ categories, transaction, handleSetCategory }) {
     return (
         <Select disabled={transaction.type === INCOME} value={transaction.category} name="category" onChange={handleSetCategory} displayEmpty fullWidth>
             <MenuItem disabled key="" value="">

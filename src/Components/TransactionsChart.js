@@ -31,8 +31,6 @@ export default function TransactionsCharts({ transactions }) {
 
     const createdTransactions = useMemo(() => buildTransactions(transactions), [transactions]);
 
-    console.log(createdTransactions);
-
     return (
         <ResponsiveContainer width="100%" height="100%">
             <BarChart
