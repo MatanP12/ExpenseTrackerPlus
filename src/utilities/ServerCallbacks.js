@@ -26,7 +26,6 @@ export function createPostCallback(setTransaction, setError) {
 export function createPutCallback(setTransactions, setError) {
     const onSucessResponse = (transaction) => setTransactions((currTransactions) => {
         const updatedTransaction = { ...transaction, date: new Date(transaction.date) }
-        console.log(updatedTransaction);
         return currTransactions.map((curr) => curr.id === updatedTransaction.id ? updatedTransaction : curr);
     })
 

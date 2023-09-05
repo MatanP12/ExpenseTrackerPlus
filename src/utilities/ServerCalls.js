@@ -18,7 +18,6 @@ function useGetData(url, onSuccessResponse = (data) => console.log(data), onErro
                 const response = await axiosInstance.get(url);
                 onSuccessResponse(response.data);
             } catch (err) {
-                console.log(err);
                 onErrorResponse(err)
             }
             finally {
